@@ -17,7 +17,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url("./assets/floresta.png);
+    background-image: url("./assets/floresta.png");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -79,7 +79,7 @@
 }
 
 .subtitulo {
-    font-family: "inter", sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 32px;
     font-weight: 400;
     margin: 50px;
