@@ -1,13 +1,16 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { AiOutlineUser, AiOutlineMail } from "react-icons/ai"
 import { BsFillKeyFill } from "react-icons/bs"
 import { useNavigate } from "react-router-dom"
-import { authUser } from "../services/authUser"
-import { registrarUser } from "../services/registrarUser"
-import "../style.css"
+import Alert from "@mui/material/Alert"
+import IconButton from "@mui/material/IconButton"
+import CloseIcon from "@mui/icons-material/Close"
+import { registrarUser, authUser } from "../services/userService"
 
 export function Cadastro(props) {
     const [user, setUser] = useState({ nome: "", email: "", senha: "" })
+    const [isErrorAlertVisible, setIsErrorAlertVisible] = useState(false)
+    const [errorMsg, setErrorMsg] = useState()
     const navigate = useNavigate()
 
     const handleInputChange = (e) => {
@@ -18,23 +21,40 @@ export function Cadastro(props) {
 
     const handleSubmitCadastro = async (e) => {
         e.preventDefault()
-        await registrarUser(user).catch((err) => {
-            console.log(err.message)
-            window.location.reload()
-        })
-
-        await authUser({ email: user.email, senha: user.senha })
-            .then((res) => {
-                sessionStorage.setItem("token", res)
-                navigate("/agenda")
+        try {
+            await registrarUser(user)
+            const token = await authUser({
+                email: user.email,
+                senha: user.senha,
             })
-            .catch((err) => {
-                console.log(err.message)
-            })
+            sessionStorage.setItem("token", token)
+            navigate("/agenda")
+        } catch (error) {
+            setErrorMsg(error.response.data)
+            setIsErrorAlertVisible(true)
+        }
     }
 
     return (
         <div className="container">
+            {isErrorAlertVisible ? (
+                <Alert
+                    variant="filled"
+                    severity="error"
+                    action={
+                        <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                                setIsErrorAlertVisible(false)
+                            }}>
+                            <CloseIcon fontSize="inherit" />
+                        </IconButton>
+                    }>
+                    {errorMsg}
+                </Alert>
+            ) : null}
             <header>
                 <h1 className="titulo-Principal">Lista de Contatos</h1>
             </header>

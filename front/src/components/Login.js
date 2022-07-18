@@ -1,12 +1,16 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { authUser } from "../services/authUser"
-import { AiOutlineUser, AiOutlineMail } from "react-icons/ai"
+import { authUser } from "../services/userService"
+import { AiOutlineMail } from "react-icons/ai"
 import { BsFillKeyFill } from "react-icons/bs"
-import "../style.css"
+import Alert from "@mui/material/Alert"
+import IconButton from "@mui/material/IconButton"
+import CloseIcon from "@mui/icons-material/Close"
 
-export default function Login(props) {
+export function Login(props) {
     const [user, setUser] = useState({ email: "", senha: "" })
+    const [isErrorAlertVisible, setIsErrorAlertVisible] = useState(false)
+    const [errorMsg, setErrorMsg] = useState()
     const navigate = useNavigate()
 
     const handleInputChange = (e) => {
@@ -24,12 +28,31 @@ export default function Login(props) {
                 navigate("/agenda")
             })
             .catch((err) => {
-                console.log(err.message)
+                setErrorMsg(err.response.data)
+                setIsErrorAlertVisible(true)
             })
     }
 
     return (
         <div className="container">
+            {isErrorAlertVisible ? (
+                <Alert
+                    variant="filled"
+                    severity="error"
+                    action={
+                        <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                                setIsErrorAlertVisible(false)
+                            }}>
+                            <CloseIcon fontSize="inherit" />
+                        </IconButton>
+                    }>
+                    {errorMsg}
+                </Alert>
+            ) : null}
             <header>
                 <h1 className="titulo-Principal">Lista de Contatos</h1>
             </header>

@@ -1,4 +1,4 @@
 {
     "jwtPrivateKey": "ProjetoOrcAgenda",
-    "DATABASE_URL": "mongodb://localhost:27017/agenda?replicaSet=rs"
+    "DATABASE_URL": "mongodb://localhost:27017/agenda"
 }

@@ -13,7 +13,7 @@ class ContactController {
             nome: Joi.string().required().min(5),
             email: Joi.string().email().required(),
             telefone: Joi.string().required().min(11),
-            foto: Joi.string().optional()
+            foto: Joi.string().optional(),
         })
         return schema.validate(contato)
     }

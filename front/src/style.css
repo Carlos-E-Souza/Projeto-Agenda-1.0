@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap");
 
 * {
     font-family: "inter", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+    overflow-x: hidden;
 }
 
 .container {
@@ -17,20 +17,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('http://cdn10.overnature.net/1920/670-a-floresta-verde-bonito.jpg');
-    background-repeat:no-repeat;
+    background-image: url("http://cdn10.overnature.net/1920/670-a-floresta-verde-bonito.jpg");
+    background-repeat: no-repeat;
     background-size: cover;
-    
 }
 
-.titulo-Principal{
+.titulo-Principal {
     color: white;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-.containerLogin, .containerCadastro {
+.containerLogin,
+.containerCadastro {
     display: flex;
 }
 
@@ -38,7 +38,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    justify-content:space-between;
+    justify-content: space-between;
     text-align: center;
     width: 300px;
     height: 500px;
@@ -47,15 +47,15 @@
     color: white;
 }
 
-.borda-titulo-Cadastro{
+.borda-titulo-Cadastro {
     margin-left: 36px;
     margin-right: 58px;
     margin-top: 90px;
     text-align: left;
-    font-size: 1.10rem;
+    font-size: 1.1rem;
 }
 
-.borda-baixo-Cadastro{
+.borda-baixo-Cadastro {
     margin-bottom: 50px;
 }
 
@@ -72,14 +72,14 @@
     flex-direction: column;
 }
 
-.borda-subtitulo-Cadastro{
+.borda-subtitulo-Cadastro {
     margin-bottom: 25px;
     font-size: 1rem;
     font-weight: bold;
 }
 
 .subtitulo {
-    font-family:'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 32px;
     font-weight: 400;
     margin: 50px;
@@ -96,11 +96,11 @@
     align-self: flex-start;
 }
 .botaoBranco:hover {
-    opacity: .6;
+    opacity: 0.6;
     cursor: pointer;
 }
 
-.botaoPreto{
+.botaoPreto {
     width: 150px;
     height: 60px;
     border: solid white 3px;
@@ -112,17 +112,17 @@
 }
 
 .botaoPreto:hover {
-    opacity: .6;
+    opacity: 0.6;
     cursor: pointer;
 }
 
-.input-Container{
+.input-Container {
     position: relative;
     padding-left: 0;
     margin-left: 0;
 }
 
-.input-Container > span{
+.input-Container > span {
     position: absolute;
     border-right: 2px solid gray;
     padding-right: 5px;
@@ -130,7 +130,7 @@
     left: 20px;
 }
 
-.input-Generico{
+.input-Generico {
     width: 360px;
     height: 60px;
     background-color: white;
@@ -140,7 +140,17 @@
     padding-left: 50px;
 }
 
-.retiraMargem{
+.inputAdicionar {
+    width: 360px;
+    height: 60px;
+    background-color: #cccccc;
+    border: none;
+    margin-bottom: 20px;
+    border-radius: 16px;
+    padding-left: 50px;
+}
+
+.retiraMargem {
     margin-left: 0;
 }
 
@@ -156,13 +166,13 @@ menu {
     justify-content: space-between;
 }
 
-.titulo{
+.titulo {
     margin-left: 2%;
     font-size: 1.2rem;
 }
 
 .logout {
-    margin-right: 2%;
+    margin-right: 3%;
     width: 130px;
     cursor: pointer;
     display: flex;
@@ -188,35 +198,41 @@ a {
 }
 
 .BsBoxArrowRight {
-    font-size: 1.3rem;   
+    font-size: 1.3rem;
 }
 
-
 .container-formulario {
-    padding: 50px;
-    text-align: center;
+    height: 25vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .formulario {
+    margin-right: 3%;
     width: 100%;
     max-width: 950px;
     height: 50px;
     border-radius: 16px;
     border: none;
-    background-color: #CCCCCC;
+    background-color: #cccccc;
     padding: 0px 50px;
-    font-size: 18px;    
+    font-size: 18px;
 }
 
 .BsSearch {
+    position: relative;
+    top: 3px;
+    left: 40px;
     font-size: 1.2rem;
-    color: #7E7E7E;
+    color: #7e7e7e;
 }
 
 .tabela-contatos-principal {
     width: 100%;
     max-width: 900px;
-    height: 815px;
+    height: auto;
     margin: 0 auto;
 }
 .tabela-contatos {
@@ -232,7 +248,7 @@ a {
 .container-imagem {
     width: 64px;
     height: 64px;
-    background-color:#D9D9D9;
+    background-color: #d9d9d9;
     border-radius: 60px;
     display: flex;
     align-items: center;
@@ -240,7 +256,11 @@ a {
     cursor: pointer;
 }
 
-.icone-vermelho {
+.icone:hover {
+    cursor: pointer;
+}
+
+.vermelho {
     color: #ff0000;
 }
 
@@ -250,7 +270,7 @@ a {
 
 .tabela-contatos tbody tr {
     height: 74px;
-
+    background-color: white;
     font-weight: 400;
 }
 
@@ -284,7 +304,7 @@ a {
 }
 
 .botaoAdicionar:hover {
-    opacity: .6;
+    opacity: 0.6;
 }
 
 .BsPersonPlus {
@@ -296,8 +316,144 @@ a {
     display: none;
 }
 
-@media(min-width: 700px) {
+@media (min-width: 700px) {
     .apareca-700 {
         display: table-cell;
     }
+}
+
+.modalContainer {
+    z-index: 2;
+    position: fixed;
+    padding: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+    background-color: white;
+    padding: 16px 24px;
+    width: 33vw;
+    min-width: 450px;
+    height: 78vh;
+    min-height: 450px;
+    border-radius: 8px;
+}
+.exitModal {
+    float: right;
+    cursor: pointer;
+}
+
+.container-imagem-modal {
+    margin-top: 25px;
+    margin-bottom: 30px;
+    width: 90px;
+    height: 90px;
+    background-color: #d9d9d9;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.add {
+    display: fixed;
+}
+
+.campos {
+    border-radius: 0 16px 16px 0;
+    border-left: 0px;
+    background-color: rgba(1000, 1000, 1000, 0.5);
+    color: black;
+    display: flex;
+    position: relative;
+    top: 48%;
+    transform: translateY(-50%);
+    align-items: center;
+    flex-direction: column;
+}
+
+.botaoSalvar {
+    width: 150px;
+    height: 60px;
+    font-size: 1.1rem;
+    border: solid black 4px;
+    border-radius: 60px;
+    margin-top: 10px;
+    align-self: flex-start;
+    display: block;
+}
+
+.botaoSalvar:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: gray;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cccccc;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.modalErro {
+    background-color: white;
+    width: 300px;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.botoes {
+    display: flex;
+    justify-content: center;
+}
+
+.botoes > button {
+    width: 50vw;
+    height: 50px;
+    border: 0;
+    font-size: 1.14rem;
+    font-weight: bold;
+}
+
+.botoes > button:nth-child(1) {
+    background-color: white;
+    border-top: 1px solid gray;
+}
+
+.botoes > button:nth-child(2) {
+    background-color: black;
+    color: white;
+}
+
+.botoes > button:hover {
+    opacity: 0.6;
+}
+
+.modalErro > span {
+    padding: 25px;
+    font-size: 1.25rem;
+    font-weight: bold;
 }

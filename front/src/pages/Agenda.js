@@ -1,160 +1,171 @@
-import React from 'react'
-import "../style.css"
-import { BsBoxArrowRight, BsPersonPlus, BsFillPersonFill, BsPencilSquare, BsFillTrashFill, BsSearch } from "react-icons/bs"
+import { useEffect, useState } from "react"
+import { Navigate, useNavigate } from "react-router-dom"
+import {
+    BsBoxArrowRight,
+    BsPersonPlus,
+    BsFillPersonFill,
+    BsPencilSquare,
+    BsFillTrashFill,
+    BsSearch,
+} from "react-icons/bs"
+import { getContatos } from "../services/contactService"
+import { CriarContatoModal } from "../components/CriarContato"
+import { EditarContatoModal } from "../components/EditarContato"
+import { DeletarContatoModal } from "../components/DeletarContato"
 
 export function Agenda() {
-  return (
-    <div>
-        <menu>
-            <span className='titulo'>Contatos</span>
-            <div className='logout'>
-                <button className='botaoSair'>Desconectar</button>
-                <span className="BsBoxArrowRight" >
-                    <BsBoxArrowRight />
-                </span>
-            </div>
-        </menu>
-        <div className='botaoAdd'>
-                <button className='botaoAdicionar'>
-                    <span className='BsPersonPlus'><BsPersonPlus/></span>
+    const [contatos, setContatos] = useState([])
+    const [pesquisa, setPesquisa] = useState("")
+    const [isCriarVisible, setIsCriarVisible] = useState(false)
+    const [isEditarVisible, setIsEditarVisible] = useState(false)
+    const [editContato, setEditContato] = useState()
+    const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false)
+    const [deleteContatoId, setDeleteContatoId] = useState()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const reqContatos = async () => {
+            const listaContatos = await getContatos(
+                sessionStorage.getItem("token")
+            )
+            setContatos(listaContatos)
+        }
+        reqContatos()
+    }, [])
+
+    const handlePesquisa = (e) => {
+        setPesquisa(e.currentTarget.value)
+    }
+
+    const handleContactEdit = (contato) => {
+        setEditContato(contato)
+        setIsEditarVisible(true)
+    }
+
+    const handleContactDelete = (contatoId) => {
+        setDeleteContatoId(contatoId)
+        setIsConfirmDeleteVisible(true)
+    }
+
+    const handleLogout = () => {
+        sessionStorage.clear()
+        navigate("/")
+    }
+
+    const contatosFiltrados = pesquisa
+        ? contatos.filter((contato) => {
+              return contato.nome
+                  .toLowerCase()
+                  .startsWith(pesquisa.toLowerCase())
+          })
+        : contatos
+
+    if (!sessionStorage.getItem("token"))
+        return <Navigate to="/default" replace />
+
+    return (
+        <div>
+            {isCriarVisible ? (
+                <CriarContatoModal
+                    closeModal={() => setIsCriarVisible(false)}
+                />
+            ) : null}
+            {isEditarVisible ? (
+                <EditarContatoModal
+                    closeModal={() => setIsEditarVisible(false)}
+                    editContato={editContato}
+                />
+            ) : null}
+            {isConfirmDeleteVisible ? (
+                <DeletarContatoModal
+                    contatoId={deleteContatoId}
+                    closeModal={() => setIsConfirmDeleteVisible(false)}
+                />
+            ) : null}
+            <menu>
+                <span className="titulo">Contatos</span>
+                <div className="logout">
+                    <button className="botaoSair" onClick={handleLogout}>
+                        Desconectar
+                    </button>
+                    <span className="BsBoxArrowRight">
+                        <BsBoxArrowRight />
+                    </span>
+                </div>
+            </menu>
+            <div className="botaoAdd">
+                <button
+                    className="botaoAdicionar"
+                    onClick={() => setIsCriarVisible(true)}>
+                    <span className="BsPersonPlus">
+                        <BsPersonPlus />
+                    </span>
                     Adicionar
                 </button>
             </div>
-        <main>
-            <section>
-                <div>
-                    <div className='container-formulario'>
-                        <span className='BsSearch'><BsSearch /></span>
-                    
-                        <input class="formulario" type="text" placeholder="&#128270;Procure por alguém"></input>
-                    </div>
-                    <div className='tabela-contatos-principal'>
-                        <table className='tabela-contatos'>
+            <div className="container-formulario">
+                <span className="BsSearch">
+                    <BsSearch />
+                </span>
+                <input
+                    className="formulario"
+                    type="text"
+                    placeholder="Procure por alguém"
+                    value={pesquisa}
+                    onChange={handlePesquisa}></input>
+            </div>
+            <main>
+                <section>
+                    <div className="tabela-contatos-principal">
+                        <table className="tabela-contatos">
                             <tbody>
-                                <tr>
-                                    <td className='apareca-700'>
-                                        <div className='container-imagem-principal'>
-                                            <div className='container-imagem'>
-                                            <BsFillPersonFill/>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Joãozinho Gameplays</td>
-                                    <td>(61) 99999-8888</td>
-                                    <td><BsPencilSquare/></td>
-                                    <td className='icone-vermelho'><BsFillTrashFill/></td>
-                                </tr>
-                                <tr>
-                                    <td className='apareca-700'>
-                                        <div className='container-imagem-principal'>
-                                            <div className='container-imagem'>
-                                            <BsFillPersonFill/>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Joãozinho Gameplays</td>
-                                    <td>(61) 99999-8888</td>
-                                    <td><BsPencilSquare/></td>
-                                    <td className='icone-vermelho'><BsFillTrashFill/></td>
-                                </tr>
-                                <tr>
-                                    <td className='apareca-700'>
-                                        <div className='container-imagem-principal'>
-                                            <div className='container-imagem'>
-                                            <BsFillPersonFill/>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Joãozinho Gameplays</td>
-                                    <td>(61) 99999-8888</td>
-                                    <td><BsPencilSquare/></td>
-                                    <td className='icone-vermelho'><BsFillTrashFill/></td>
-                                </tr>
-                                <tr>
-                                    <td className='apareca-700'>
-                                        <div className='container-imagem-principal'>
-                                            <div className='container-imagem'>
-                                            <BsFillPersonFill/>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Joãozinho Gameplays</td>
-                                    <td>(61) 99999-8888</td>
-                                    <td><BsPencilSquare/></td>
-                                    <td className='icone-vermelho'><BsFillTrashFill/></td>
-                                </tr>
-                                <tr>
-                                    <td className='apareca-700'>
-                                        <div className='container-imagem-principal'>
-                                            <div className='container-imagem'>
-                                            <BsFillPersonFill/>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Joãozinho Gameplays</td>
-                                    <td>(61) 99999-8888</td>
-                                    <td><BsPencilSquare/></td>
-                                    <td className='icone-vermelho'><BsFillTrashFill/></td>
-                                </tr>
-                                <tr>
-                                    <td className='apareca-700'>
-                                        <div className='container-imagem-principal'>
-                                            <div className='container-imagem'>
-                                            <BsFillPersonFill/>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Joãozinho Gameplays</td>
-                                    <td>(61) 99999-8888</td>
-                                    <td><BsPencilSquare/></td>
-                                    <td className='icone-vermelho'><BsFillTrashFill/></td>
-                                </tr>
-                                <tr>
-                                    <td className='apareca-700'>
-                                        <div className='container-imagem-principal'>
-                                            <div className='container-imagem'>
-                                            <BsFillPersonFill/>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Joãozinho Gameplays</td>
-                                    <td>(61) 99999-8888</td>
-                                    <td><BsPencilSquare/></td>
-                                    <td className='icone-vermelho'><BsFillTrashFill/></td>
-                                </tr>
-                                <tr>
-                                    <td className='apareca-700'>
-                                        <div className='container-imagem-principal'>
-                                            <div className='container-imagem'>
-                                            <BsFillPersonFill/>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Joãozinho Gameplays</td>
-                                    <td>(61) 99999-8888</td>
-                                    <td><BsPencilSquare/></td>
-                                    <td className='icone-vermelho'><BsFillTrashFill/></td>
-                                </tr>
-                                <tr>
-                                    <td className='apareca-700'>
-                                        <div className='container-imagem-principal'>
-                                            <div className='container-imagem'>
-                                            <BsFillPersonFill/>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Joãozinho Gameplays</td>
-                                    <td>(61) 99999-8888</td>
-                                    <td><BsPencilSquare/></td>
-                                    <td className='icone-vermelho'><BsFillTrashFill/></td>
-                                </tr>
+                                {contatosFiltrados.map((contato) => {
+                                    return (
+                                        <tr key={contato._id}>
+                                            <td className="apareca-700">
+                                                <div className="container-imagem-principal">
+                                                    {contato.foto ? (
+                                                        <img
+                                                            className="container-imagem-modal"
+                                                            src={contato.foto}
+                                                            alt="Foto Contato"
+                                                        />
+                                                    ) : (
+                                                        <BsFillPersonFill className="container-imagem-modal" />
+                                                    )}
+                                                </div>
+                                            </td>
+                                            <td>{contato.nome}</td>
+                                            <td>{`(${contato.telefone.slice(
+                                                -contato.telefone.length,
+                                                2
+                                            )}) ${contato.telefone.slice(
+                                                2
+                                            )}`}</td>
+                                            <td
+                                                className="icone"
+                                                onClick={() =>
+                                                    handleContactEdit(contato)
+                                                }>
+                                                <BsPencilSquare />
+                                            </td>
+                                            <td
+                                                className="icone vermelho"
+                                                onClick={() =>
+                                                    handleContactDelete(
+                                                        contato._id
+                                                    )
+                                                }>
+                                                <BsFillTrashFill />
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </section>
-        </main>
-    </div>
-  )
+                </section>
+            </main>
+        </div>
+    )
 }
-
