@@ -17,7 +17,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url("http://cdn10.overnature.net/1920/670-a-floresta-verde-bonito.jpg");
+    background-image: url("./assets/floresta.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
